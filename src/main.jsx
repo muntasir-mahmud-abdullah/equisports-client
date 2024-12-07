@@ -8,6 +8,7 @@ import UpdateEquipment from "./pages/UpdateEquipment.jsx";
 import SignIn from "./components/SignIn.jsx";
 import SignUp from "./components/SignUp.jsx";
 import Layout from "./components/Layout.jsx";
+import AuthProvider from "./providers/AuthProvider.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -43,6 +44,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
+    <AuthProvider>
     <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>
 );
