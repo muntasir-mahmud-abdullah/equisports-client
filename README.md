@@ -45,7 +45,7 @@ Welcome to **EquiSports**, your one-stop platform for browsing, purchasing, and 
 
 ## 🔗 How to Run Locally
 
-1. Clone the repository:
+1. Clone  the repository:
    ```bash
    git clone
    ```
