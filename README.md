@@ -2,7 +2,7 @@
 
 Welcome to **EquiSports**, your one-stop platform for browsing, purchasing, and reviewing sports equipment. Explore gear, apparel, and accessories tailored for various sports disciplines in a seamless and user-friendly online shopping experience.
 
-## 🌐 Live Website URL
+## 🌐 Live Website URL (https://equi-sports-1edf9.web.app/)
 
 [Visit EquiSports]()
 
