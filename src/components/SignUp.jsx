@@ -13,19 +13,15 @@ const SignUp = () => {
     const password = form.password.value;
     createUser(email, password).then((result) => {
       console.log(result.user);
-      const newUser = { name, email, image };
-      // <AddEquipment newUser = { newUser } ></AddEquipment>
+      // <AddEquipment name={name} ></AddEquipment>
       //save new user info to database
-      fetch(
-        " https://equisports-server-ilckrdzgo-munthasir-mahmud-abdullahs-projects.vercel.app/users",
-        {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(newUser),
-        }
-      )
+      fetch(" https://equisports-server-xi.vercel.app/users", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(newUser),
+      })
         .then((res) => res.json())
         .then((data) => {
           if (data.insertedId) {

@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import { AuthContext } from "../providers/AuthProvider";
 
-const Equipcard = ({ equipment, equipments, setEquipments }) => {
+const Equipcard = ({ equipment, equipments, setEquipments, }) => {
+//  const {user} = useContext(AuthContext);
   const {
     _id,
     name,
@@ -29,12 +31,9 @@ const Equipcard = ({ equipment, equipments, setEquipments }) => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(
-          ` https://equisports-server-ilckrdzgo-munthasir-mahmud-abdullahs-projects.vercel.app/equipments/${_id}`,
-          {
-            method: "DELETE",
-          }
-        )
+        fetch(` https://equisports-server-xi.vercel.app/equipments/${_id}`, {
+          method: "DELETE",
+        })
           .then((res) => res.json())
           .then((data) => {
             console.log(data);
@@ -71,7 +70,9 @@ const Equipcard = ({ equipment, equipments, setEquipments }) => {
         </div>
 
         <div className="join join-vertical space-y-4">
-          <button className="btn join-item">View details</button>
+          <Link to={`detailEquipment/${_id}`}>
+            <button className="btn join-item">View details</button>
+          </Link>
           <Link to={`updateEquipment/${_id}`}>
             <button className="btn join-item">Update</button>
           </Link>

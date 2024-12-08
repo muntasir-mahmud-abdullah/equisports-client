@@ -10,6 +10,8 @@ import SignUp from "./components/SignUp.jsx";
 import Layout from "./components/Layout.jsx";
 import AuthProvider from "./providers/AuthProvider.jsx";
 import AllEquipments from "./pages/AllEquipments.jsx";
+import DetailEquipment from "./pages/DetailEquipment.jsx";
+import PrivateRoute from "./components/PrivateRoute.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -19,21 +21,25 @@ const router = createBrowserRouter([
         path: "/",
         element: <App></App>,
         loader: () =>
-          fetch(
-            " https://equisports-server-ilckrdzgo-munthasir-mahmud-abdullahs-projects.vercel.app/equipments"
-          ),
+          fetch("https://equisports-server-xi.vercel.app/equipments"),
       },
       {
         path: "addEquipment",
-        element: <AddEquipment></AddEquipment>,
+        element: <PrivateRoute><AddEquipment></AddEquipment></PrivateRoute> ,
       },
       {
         path: "updateEquipment/:id",
-        element: <UpdateEquipment></UpdateEquipment>,
+        element: <PrivateRoute><UpdateEquipment></UpdateEquipment></PrivateRoute> ,
         loader: ({ params }) =>
           fetch(
-            ` https://equisports-server-ilckrdzgo-munthasir-mahmud-abdullahs-projects.vercel.app/equipments/${params.id}`
+            `https://equisports-server-xi.vercel.app/equipments/${params.id}`
           ),
+      },
+      {
+        path: "detailEquipment/:id",
+        element: <DetailEquipment></DetailEquipment>,
+        loader: () =>
+          fetch("https://equisports-server-xi.vercel.app/equipments"),
       },
       {
         path: "signIn",
@@ -47,9 +53,7 @@ const router = createBrowserRouter([
         path: "allEquipments",
         element: <AllEquipments></AllEquipments>,
         loader: () =>
-          fetch(
-            " https://equisports-server-ilckrdzgo-munthasir-mahmud-abdullahs-projects.vercel.app/equipments"
-          ),
+          fetch("https://equisports-server-xi.vercel.app/equipments"),
       },
     ],
   },

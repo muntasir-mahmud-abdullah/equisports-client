@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
+import { AuthContext } from "../providers/AuthProvider";
 const AddEquipment = () => {
+  const {user} = useContext(AuthContext);
+  
   // console.log(newUser);
   // const { name: , email:   } = newUser;
   const handleAddEquip = (e) => {
@@ -29,16 +32,13 @@ const AddEquipment = () => {
     };
     console.log(newEquipment);
     // send data to the server
-    fetch(
-      " https://equisports-server-ilckrdzgo-munthasir-mahmud-abdullahs-projects.vercel.app/equipments",
-      {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(newEquipment),
-      }
-    )
+    fetch(" https://equisports-server-xi.vercel.app/equipments", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newEquipment),
+    })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -181,6 +181,7 @@ const AddEquipment = () => {
               type="text"
               name="user-email"
               readOnly
+              defaultValue={user?.email}
               className="input input-bordered w-full "
             />
           </div>

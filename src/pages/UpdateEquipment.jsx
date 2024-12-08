@@ -40,16 +40,13 @@ const UpdateEquipment = () => {
     };
     console.log(updatedEquipment);
     // send data to the server
-    fetch(
-      ` https://equisports-server-ilckrdzgo-munthasir-mahmud-abdullahs-projects.vercel.app/equipments/${_id}`,
-      {
-        method: "PUT",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(updatedEquipment),
-      }
-    )
+    fetch(` https://equisports-server-xi.vercel.app/equipments/${_id}`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(updatedEquipment),
+    })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);

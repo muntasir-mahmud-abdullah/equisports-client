@@ -1,8 +1,11 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const SignIn = () => {
   const { signInUser } = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
   const handleSignIn = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
@@ -11,6 +14,9 @@ const SignIn = () => {
     signInUser(email, password)
       .then((result) => {
         console.log(result.user);
+        navigate(location?.state ? location.state : "/");
+        const loginInfo = { email };
+        // fetch(`http://localhost:5000/equipments/${email}`)
       })
       .catch((error) => console.log(error.message));
   };
