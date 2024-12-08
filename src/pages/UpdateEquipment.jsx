@@ -2,52 +2,66 @@ import React from "react";
 import { useLoaderData } from "react-router-dom";
 
 const UpdateEquipment = () => {
-    const equipment = useLoaderData();
-    const {_id,name,category,image,description,price,rating,customization,processingTime,stockStatus} = equipment;
-    const handleUpdateEquip = (e) => {
-        e.preventDefault();
-        const form = e.target;
-        const name = form.name.value;
-        const category = form.category.value;
-        const image = form.image.value;
-        const description = form.description.value;
-        const price = form.price.value;
-        const rating = form.rating.value;
-        const customization = form.customization.value;
-        const processingTime = form.processingTime.value;
-        const stockStatus = form.stockStatus.value;
-        const updatedEquipment = {
-          name,
-          category,
-          image,
-          description,
-          price,
-          rating,
-          customization,
-          processingTime,
-          stockStatus,
-        };
-        console.log(updatedEquipment);
-        // send data to the server
-        fetch(`http://localhost:5000/equipments/${_id}`, {
-          method: "PUT",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(updatedEquipment),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            console.log(data);
-            if (data.modifiedCount > 0) {
-              Swal.fire({
-                title: "Good job!",
-                text: "Equipment Updated Successfully!",
-                icon: "success",
-              });
-            }
+  const equipment = useLoaderData();
+  const {
+    _id,
+    name,
+    category,
+    image,
+    description,
+    price,
+    rating,
+    customization,
+    processingTime,
+    stockStatus,
+  } = equipment;
+  const handleUpdateEquip = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const category = form.category.value;
+    const image = form.image.value;
+    const description = form.description.value;
+    const price = form.price.value;
+    const rating = form.rating.value;
+    const customization = form.customization.value;
+    const processingTime = form.processingTime.value;
+    const stockStatus = form.stockStatus.value;
+    const updatedEquipment = {
+      name,
+      category,
+      image,
+      description,
+      price,
+      rating,
+      customization,
+      processingTime,
+      stockStatus,
+    };
+    console.log(updatedEquipment);
+    // send data to the server
+    fetch(
+      ` https://equisports-server-ilckrdzgo-munthasir-mahmud-abdullahs-projects.vercel.app/equipments/${_id}`,
+      {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(updatedEquipment),
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.modifiedCount > 0) {
+          Swal.fire({
+            title: "Good job!",
+            text: "Equipment Updated Successfully!",
+            icon: "success",
           });
-      };
+        }
+      });
+  };
   return (
     <div className="bg-gray-400 p-24">
       <h1 className="text-3xl mb-8 font-extrabold">Update Equipment</h1>
@@ -202,7 +216,11 @@ const UpdateEquipment = () => {
             />
           </div>
         </div>
-        <input type="submit" value="Update Equipment" className="btn btn-block mt-4"  />
+        <input
+          type="submit"
+          value="Update Equipment"
+          className="btn btn-block mt-4"
+        />
       </form>
     </div>
   );

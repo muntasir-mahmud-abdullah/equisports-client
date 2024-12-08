@@ -16,13 +16,16 @@ const SignUp = () => {
       const newUser = { name, email, image };
       // <AddEquipment newUser = { newUser } ></AddEquipment>
       //save new user info to database
-      fetch("http://localhost:5000/users", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(newUser),
-      })
+      fetch(
+        " https://equisports-server-ilckrdzgo-munthasir-mahmud-abdullahs-projects.vercel.app/users",
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(newUser),
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           if (data.insertedId) {
@@ -89,7 +92,7 @@ const SignUp = () => {
               />
             </div>
             <div className="form-control mt-6">
-              <button className="btn btn-primary">Sign Up</button>
+              <button className="btn btn-primary">Sign Up or Register</button>
             </div>
           </form>
         </div>

@@ -29,9 +29,12 @@ const Equipcard = ({ equipment, equipments, setEquipments }) => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/equipments/${_id}`, {
-          method: "DELETE",
-        })
+        fetch(
+          ` https://equisports-server-ilckrdzgo-munthasir-mahmud-abdullahs-projects.vercel.app/equipments/${_id}`,
+          {
+            method: "DELETE",
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             console.log(data);

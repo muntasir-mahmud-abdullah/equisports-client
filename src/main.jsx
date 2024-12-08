@@ -18,18 +18,22 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <App></App>,
-        loader: () => fetch("http://localhost:5000/equipments"),
+        loader: () =>
+          fetch(
+            " https://equisports-server-ilckrdzgo-munthasir-mahmud-abdullahs-projects.vercel.app/equipments"
+          ),
       },
       {
         path: "addEquipment",
-        element: <AddEquipment></AddEquipment>
+        element: <AddEquipment></AddEquipment>,
       },
-
       {
         path: "updateEquipment/:id",
         element: <UpdateEquipment></UpdateEquipment>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/equipments/${params.id}`),
+          fetch(
+            ` https://equisports-server-ilckrdzgo-munthasir-mahmud-abdullahs-projects.vercel.app/equipments/${params.id}`
+          ),
       },
       {
         path: "signIn",
@@ -40,10 +44,13 @@ const router = createBrowserRouter([
         element: <SignUp></SignUp>,
       },
       {
-        path:"allEquipments",
-        element:<AllEquipments></AllEquipments>,
-        loader:()=> fetch('http://localhost:5000/equipments')
-      }
+        path: "allEquipments",
+        element: <AllEquipments></AllEquipments>,
+        loader: () =>
+          fetch(
+            " https://equisports-server-ilckrdzgo-munthasir-mahmud-abdullahs-projects.vercel.app/equipments"
+          ),
+      },
     ],
   },
 ]);
@@ -51,7 +58,7 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <AuthProvider>
-    <RouterProvider router={router} />
+      <RouterProvider router={router} />
     </AuthProvider>
   </StrictMode>
 );

@@ -11,6 +11,9 @@ const Header = () => {
         <NavLink to={"/addEquipment"}>Add Equipments</NavLink>
       </li>
       <li>
+        <NavLink to={"/allEquipments"}>All Equipments</NavLink>
+      </li>
+      <li>
         <NavLink to={"/signIn"}>Sign In</NavLink>
       </li>
     </>
@@ -42,7 +45,8 @@ const Header = () => {
             {links}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">daisyUI</a>
+        <a className="btn btn-ghost text-xl">EquiSports
+        </a>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>

@@ -29,13 +29,16 @@ const AddEquipment = () => {
     };
     console.log(newEquipment);
     // send data to the server
-    fetch("http://localhost:5000/equipments", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(newEquipment),
-    })
+    fetch(
+      " https://equisports-server-ilckrdzgo-munthasir-mahmud-abdullahs-projects.vercel.app/equipments",
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(newEquipment),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
