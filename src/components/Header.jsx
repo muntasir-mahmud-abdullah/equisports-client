@@ -1,15 +1,14 @@
 import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
-import { Tooltip as ReactTooltip } from 'react-tooltip'
-
-
+import { Tooltip as ReactTooltip } from "react-tooltip";
 
 const Header = () => {
   const { user, logOut } = useContext(AuthContext);
   const handleSignOut = () => {
     logOut().then().catch();
   };
+
   const links = (
     <>
       <li>
@@ -29,8 +28,9 @@ const Header = () => {
       </li>
     </>
   );
+
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-base-100 sticky top-0 z-50 shadow-lg">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -64,16 +64,20 @@ const Header = () => {
       <div className="navbar-end">
         {user ? (
           <div className="flex gap-2">
-            <img className="w-10 rounded-full" data-tooltip-id="my-tooltip" data-tooltip-content={user.displayName} src={user.photoURL} />
-          <ReactTooltip id="my-tooltip" />
+            <img
+              className="w-10 rounded-full"
+              data-tooltip-id="my-tooltip"
+              data-tooltip-content={user.displayName}
+              src={user.photoURL}
+            />
+            <ReactTooltip id="my-tooltip" />
             <button onClick={handleSignOut} className="btn">
               Sign Out
             </button>
           </div>
         ) : (
           <Link to="/signIn">
-            {" "}
-            <button className="btn">Sign In</button>{" "}
+            <button className="btn">Sign In</button>
           </Link>
         )}
       </div>

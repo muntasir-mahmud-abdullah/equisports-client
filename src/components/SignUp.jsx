@@ -1,13 +1,12 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
-import AddEquipment from "../pages/AddEquipment";
-import { updateProfile } from "firebase/auth";
-import { auth } from "../firebase/firebase.init";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const SignUp = () => {
   const navigate = useNavigate();
   const { createUser, setUser, updateUserProfile } = useContext(AuthContext);
+
   const handleSignUp = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -17,62 +16,87 @@ const SignUp = () => {
     const password = form.password.value;
     const newUser = { name, image, email };
 
-    createUser(email, password).then((result) => {
-      const user = result.user;
-      setUser(user);
-      updateUserProfile({ displayName: name, photoURL: image })
-        .then(() => {
-          navigate("/");
-        })
-        .catch((error) => console.log(error));
+    // Password validation: Must contain uppercase, lowercase, and at least 6 characters
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+    if (!passwordRegex.test(password)) {
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Password",
+        text: "Password must contain at least one uppercase, one lowercase letter, and be at least 6 characters long.",
+      });
+      return;
+    }
 
-      // <AddEquipment name={name} ></AddEquipment>
-      //save new user info to database
-      fetch(" https://equisports-server-xi.vercel.app/users", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(newUser),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.insertedId) {
-            console.log("user created in db");
-          }
+    createUser(email, password)
+      .then((result) => {
+        const user = result.user;
+        setUser(user);
+
+        // Update user profile
+        updateUserProfile({ displayName: name, photoURL: image }).then(() => {
+          Swal.fire({
+            icon: "success",
+            title: "Registration Successful",
+            text: "Welcome to EquiSports!",
+          });
+          navigate("/");
         });
-    });
+
+        // Save new user info to the database
+        fetch("https://equisports-server-xi.vercel.app/users", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(newUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.insertedId) {
+              console.log("User created in the database");
+            }
+          });
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: "error",
+          title: "Registration Failed",
+          text: error.message,
+        });
+      });
   };
 
   return (
     <div className="hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col">
         <div className="text-center">
-          <h1 className="text-5xl font-bold">Sign Up now!</h1>
+          <h1 className="text-4xl font-extrabold text-primary mb-6">
+            Sign Up Now!
+          </h1>
         </div>
-        <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-          <form onSubmit={handleSignUp} className="card-body">
+        <div className="card bg-base-100 w-full max-w-md shrink-0 shadow-xl rounded-lg p-8">
+          <form onSubmit={handleSignUp} className="space-y-6">
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Name</span>
               </label>
               <input
                 type="text"
-                placeholder="name"
+                placeholder="Your name"
                 name="name"
-                className="input input-bordered"
+                className="input input-bordered w-full"
                 required
               />
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Image</span>
+                <span className="label-text">Image (Photo URL)</span>
               </label>
               <input
                 type="text"
-                placeholder="Photo URL"
+                placeholder="Your image URL"
                 name="image"
-                className="input input-bordered"
+                className="input input-bordered w-full"
                 required
               />
             </div>
@@ -82,9 +106,9 @@ const SignUp = () => {
               </label>
               <input
                 type="email"
-                placeholder="email"
+                placeholder="Your email"
                 name="email"
-                className="input input-bordered"
+                className="input input-bordered w-full"
                 required
               />
             </div>
@@ -94,14 +118,16 @@ const SignUp = () => {
               </label>
               <input
                 type="password"
-                placeholder="password"
+                placeholder="Your password"
                 name="password"
-                className="input input-bordered"
+                className="input input-bordered w-full"
                 required
               />
             </div>
             <div className="form-control mt-6">
-              <button className="btn btn-primary">Sign Up or Register</button>
+              <button className="btn btn-primary w-full">
+                Sign Up or Register
+              </button>
             </div>
           </form>
         </div>

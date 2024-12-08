@@ -38,7 +38,7 @@ const UpdateEquipment = () => {
       processingTime,
       stockStatus,
     };
-    console.log(updatedEquipment);
+    // console.log(updatedEquipment);
     // send data to the server
     fetch(` https://equisports-server-xi.vercel.app/equipments/${_id}`, {
       method: "PUT",
@@ -49,7 +49,7 @@ const UpdateEquipment = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         if (data.modifiedCount > 0) {
           Swal.fire({
             title: "Good job!",

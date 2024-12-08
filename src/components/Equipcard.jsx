@@ -1,10 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import { AuthContext } from "../providers/AuthProvider";
 
-const Equipcard = ({ equipment, equipments, setEquipments, }) => {
-//  const {user} = useContext(AuthContext);
+const Equipcard = ({ equipment, equipments, setEquipments }) => {
   const {
     _id,
     name,
@@ -17,10 +15,8 @@ const Equipcard = ({ equipment, equipments, setEquipments, }) => {
     processingTime,
     stockStatus,
   } = equipment;
-  console.log(equipment);
-  console.log(name);
+
   const handleDelete = (_id) => {
-    console.log(_id);
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -31,12 +27,11 @@ const Equipcard = ({ equipment, equipments, setEquipments, }) => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(` https://equisports-server-xi.vercel.app/equipments/${_id}`, {
+        fetch(`https://equisports-server-xi.vercel.app/equipments/${_id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
           .then((data) => {
-            console.log(data);
             if (data.deletedCount > 0) {
               Swal.fire({
                 title: "Deleted!",
@@ -52,37 +47,33 @@ const Equipcard = ({ equipment, equipments, setEquipments, }) => {
       }
     });
   };
+
   return (
-    <div className="card card-side bg-base-100 shadow-xl">
-      <figure>
-        <img src={image} alt="equipment image" />
+    <div className="card card-side bg-base-100 shadow-xl p-4 rounded-lg">
+      <figure className="w-1/2">
+        <img
+          src={image}
+          alt="equipment image"
+          className="w-full h-48 object-cover rounded-lg"
+        />
       </figure>
-      <div className="flex w-full pr-4 justify-between">
-        <div className="p-5">
-          <h2 className="card-title">Item Name :{name}</h2>
-          <p>Category : {category}</p>
-          <p> Description : {description}</p>
-          <p> Price : {price}</p>
-          <p>Rating : {rating}</p>
-          <p>Customization : {customization}</p>
-          <p>Processing Time : {processingTime}</p>
-          <p>Stock Status : {stockStatus}</p>
-        </div>
+      <div className="flex flex-col w-full sm:w-1/2 pl-4">
+        <h2 className="card-title text-xl font-semibold">{name}</h2>
+        <p className="text-sm text-gray-600">Category: {category}</p>
+        <p className="text-sm text-gray-600">Description: {description}</p>
+        <p className="text-sm text-gray-600">Price: ${price}</p>
+        <p className="text-sm text-gray-600">Rating: {rating}</p>
+        <p className="text-sm text-gray-600">Customization: {customization}</p>
+        <p className="text-sm text-gray-600">
+          Processing Time: {processingTime}
+        </p>
+        <p className="text-sm text-gray-600">Stock Status: {stockStatus}</p>
 
-        <div className="join join-vertical space-y-4">
-          <Link to={`detailEquipment/${_id}`}>
-            <button className="btn join-item">View details</button>
-          </Link>
-          <Link to={`updateEquipment/${_id}`}>
-            <button className="btn join-item">Update</button>
+        <div className="card-actions mt-4 space-x-2">
+          <Link to={`/detailEquipment/${_id}`}>
+            <button className="btn btn-primary">View Details</button>
           </Link>
 
-          <button
-            onClick={() => handleDelete(_id)}
-            className="btn join-item bg-red-500"
-          >
-            Delete
-          </button>
         </div>
       </div>
     </div>
