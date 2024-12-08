@@ -3,8 +3,8 @@ import { useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../providers/AuthProvider";
 const AddEquipment = () => {
-  const {user} = useContext(AuthContext);
-  
+  const { user } = useContext(AuthContext);
+
   // console.log(newUser);
   // const { name: , email:   } = newUser;
   const handleAddEquip = (e) => {
@@ -19,6 +19,7 @@ const AddEquipment = () => {
     const customization = form.customization.value;
     const processingTime = form.processingTime.value;
     const stockStatus = form.stockStatus.value;
+    const email = form.email.value;
     const newEquipment = {
       name,
       category,
@@ -29,7 +30,9 @@ const AddEquipment = () => {
       customization,
       processingTime,
       stockStatus,
+      email,
     };
+    form.reset();
     console.log(newEquipment);
     // send data to the server
     fetch(" https://equisports-server-xi.vercel.app/equipments", {
@@ -179,7 +182,7 @@ const AddEquipment = () => {
             </label>
             <input
               type="text"
-              name="user-email"
+              name="email"
               readOnly
               defaultValue={user?.email}
               className="input input-bordered w-full "
@@ -192,6 +195,7 @@ const AddEquipment = () => {
             <input
               type="text"
               name="user-name"
+              defaultValue={user?.displayName}
               readOnly
               className="input input-bordered w-full "
             />

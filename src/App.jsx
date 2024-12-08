@@ -3,7 +3,6 @@ import { useLoaderData } from 'react-router-dom'
 import './App.css'
 import Equipcard from './components/Equipcard';
 import { useState } from 'react';
-import DetailEquipment from './pages/DetailEquipment';
 
 function App() {
   const loadedEquipments = useLoaderData();

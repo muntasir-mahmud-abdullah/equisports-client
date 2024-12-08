@@ -12,6 +12,8 @@ import AuthProvider from "./providers/AuthProvider.jsx";
 import AllEquipments from "./pages/AllEquipments.jsx";
 import DetailEquipment from "./pages/DetailEquipment.jsx";
 import PrivateRoute from "./components/PrivateRoute.jsx";
+import Myequipments from "./pages/Myequipments.jsx";
+import NotFound from "./pages/NotFound.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -54,6 +56,16 @@ const router = createBrowserRouter([
         element: <AllEquipments></AllEquipments>,
         loader: () =>
           fetch("https://equisports-server-xi.vercel.app/equipments"),
+      },
+      {
+        path: "myEquipments",
+        element: <Myequipments></Myequipments>,
+        loader: () =>
+          fetch("https://equisports-server-xi.vercel.app/equipments"),
+      },
+      {
+        path: "*", // Catch-all route
+        element: <NotFound></NotFound>, // 404 Page
       },
     ],
   },

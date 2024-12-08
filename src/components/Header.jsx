@@ -1,14 +1,15 @@
 import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
+import { Tooltip as ReactTooltip } from 'react-tooltip'
+
+
 
 const Header = () => {
-  const { user,logOut } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
   const handleSignOut = () => {
-    logOut()
-    .then()
-    .catch()
-  }
+    logOut().then().catch();
+  };
   const links = (
     <>
       <li>
@@ -19,6 +20,9 @@ const Header = () => {
       </li>
       <li>
         <NavLink to={"/allEquipments"}>All Equipments</NavLink>
+      </li>
+      <li>
+        <NavLink to={"/myEquipments"}>My Equipments</NavLink>
       </li>
       <li>
         <NavLink to={"/signIn"}>Sign In</NavLink>
@@ -52,19 +56,26 @@ const Header = () => {
             {links}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">EquiSports
-        </a>
+        <a className="btn btn-ghost text-xl">EquiSports</a>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end">
-        {
-          user ? 
-            <button onClick={handleSignOut} className="btn">Sign Out</button>
-            :
-            <Link to="/signIn"> <button className="btn">Sign In</button> </Link>
-        }
+        {user ? (
+          <div className="flex gap-2">
+            <img className="w-10 rounded-full" data-tooltip-id="my-tooltip" data-tooltip-content={user.displayName} src={user.photoURL} />
+          <ReactTooltip id="my-tooltip" />
+            <button onClick={handleSignOut} className="btn">
+              Sign Out
+            </button>
+          </div>
+        ) : (
+          <Link to="/signIn">
+            {" "}
+            <button className="btn">Sign In</button>{" "}
+          </Link>
+        )}
       </div>
     </div>
   );

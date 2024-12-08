@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const SignIn = () => {
   const { signInUser } = useContext(AuthContext);
@@ -14,9 +14,19 @@ const SignIn = () => {
     signInUser(email, password)
       .then((result) => {
         console.log(result.user);
+        // fetch(`http://localhost:5000/equipments/${email}`,{
+        //   method:'PATCH',
+        //   headers:{
+        //     'content-type':'application/json'
+        //   },
+        //   body:JSON.stringify(email)
+        // })
+        // .then(res=> res.json())
+        // .then(data=>{
+        //   console.log(data)
+        // })
         navigate(location?.state ? location.state : "/");
-        const loginInfo = { email };
-        // fetch(`http://localhost:5000/equipments/${email}`)
+        // const loginInfo = { email };
       })
       .catch((error) => console.log(error.message));
   };
@@ -54,7 +64,9 @@ const SignIn = () => {
             </div>
             <div className="form-control mt-6">
               <button className="btn btn-primary">Log In</button>
+            
             </div>
+            <p>New to EquiSports : <Link to="/signUp"> Sign Up </Link></p>
           </form>
         </div>
       </div>

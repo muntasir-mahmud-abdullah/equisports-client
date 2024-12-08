@@ -1,9 +1,13 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import AddEquipment from "../pages/AddEquipment";
+import { updateProfile } from "firebase/auth";
+import { auth } from "../firebase/firebase.init";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
-  const { createUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const { createUser, setUser, updateUserProfile } = useContext(AuthContext);
   const handleSignUp = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -11,8 +15,17 @@ const SignUp = () => {
     const image = form.image.value;
     const email = form.email.value;
     const password = form.password.value;
+    const newUser = { name, image, email };
+
     createUser(email, password).then((result) => {
-      console.log(result.user);
+      const user = result.user;
+      setUser(user);
+      updateUserProfile({ displayName: name, photoURL: image })
+        .then(() => {
+          navigate("/");
+        })
+        .catch((error) => console.log(error));
+
       // <AddEquipment name={name} ></AddEquipment>
       //save new user info to database
       fetch(" https://equisports-server-xi.vercel.app/users", {
