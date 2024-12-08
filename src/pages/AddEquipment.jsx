@@ -1,6 +1,9 @@
 import React from "react";
+import { useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
 const AddEquipment = () => {
+  // console.log(newUser);
+  // const { name: , email:   } = newUser;
   const handleAddEquip = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -49,7 +52,6 @@ const AddEquipment = () => {
   return (
     <div className="bg-gray-400 p-24">
       <h1 className="text-3xl mb-8 font-extrabold">Add Equipments</h1>
-
       <form onSubmit={handleAddEquip}>
         {/* form row */}
         <div className="md:flex">
@@ -175,7 +177,7 @@ const AddEquipment = () => {
             <input
               type="text"
               name="user-email"
-              placeholder="email"
+              readOnly
               className="input input-bordered w-full "
             />
           </div>
@@ -186,12 +188,16 @@ const AddEquipment = () => {
             <input
               type="text"
               name="user-name"
-              placeholder="Name"
+              readOnly
               className="input input-bordered w-full "
             />
           </div>
         </div>
-        <input type="submit" value="Add Equipment" className="btn btn-block mt-4"  />
+        <input
+          type="submit"
+          value="Add Equipment"
+          className="btn btn-block mt-4"
+        />
       </form>
     </div>
   );

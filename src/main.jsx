@@ -9,6 +9,7 @@ import SignIn from "./components/SignIn.jsx";
 import SignUp from "./components/SignUp.jsx";
 import Layout from "./components/Layout.jsx";
 import AuthProvider from "./providers/AuthProvider.jsx";
+import AllEquipments from "./pages/AllEquipments.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
       },
       {
         path: "addEquipment",
-        element: <AddEquipment></AddEquipment>,
+        element: <AddEquipment></AddEquipment>
       },
 
       {
@@ -38,6 +39,11 @@ const router = createBrowserRouter([
         path: "signUp",
         element: <SignUp></SignUp>,
       },
+      {
+        path:"allEquipments",
+        element:<AllEquipments></AllEquipments>,
+        loader:()=> fetch('http://localhost:5000/equipments')
+      }
     ],
   },
 ]);
